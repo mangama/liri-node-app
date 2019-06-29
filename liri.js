@@ -8,8 +8,6 @@ var spotify = new Spotify(keys.spotify); // var spotify = new Spotify({ id: <you
 var userChoice = process.argv[2];
 var userInput = process.argv[3];
 
-//function switchFunction(userChoice, userInput)
-
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 // This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
@@ -20,22 +18,19 @@ var userInput = process.argv[3];
 function concertInfo(artist) {
   var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
   axios.get(queryUrl).then(function (response) {
-    // console.log(response.data[0].venue);
-    // console.log(userInput);
+    console.log(response);
     if (response.status === 200) {
       var concerts = response.data;
       console.log(concerts);
       for (var i = 0; i < concerts.length; i++) {
-        console.log("Name of the Venue: " + concerts[i].venue.name + "\n");
-        fs.appendFileSync("log.txt", "Venue Name: " + concerts[i].venue.name + "\n");
+        console.log("Name of the Venue: " + concerts[i].venue.name);
+        fs.appendFileSync("log.txt", "Venue Name: " + concerts[i].venue.name);
         console.log("Venue Location: " + concerts[i].venue.city) + "\n";
         fs.appendFileSync("log.txt", "Venue Location: " + concerts[i].venue.city + "\n");
         console.log("Date of the Event: " + concerts[i].datetime + "\n" + "\n");
         fs.appendFileSync("log.txt", "Event Date: " + concerts[i].datetime + "\n" + "\n");
         console.log("---------------------------------------------------------------------------------------------------------------------------------------");
         fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
-        // console.log("Concert Details: " + i + "\n" + "\n");
-        // fs.appendFileSync("log.txt" + i + "\n") + "\n";
       }
     } else {
       console.log('An error has occured.');
@@ -62,7 +57,8 @@ function songInfo(song) {
     function (err, data) {
       if (err) {
         console.log(err + "error has occurred");
-        return;
+        console.log("---------------------------------------------------------------------------------------------------------------------------------------");
+        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
       }
       var songs = data.tracks.items;
 
@@ -85,14 +81,12 @@ function songInfo(song) {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 function movieInfo(movieTitle) {
-
   //Default results
   if (movieTitle === undefined) {
     movieTitle = "Mr. Nobody"
     console.log("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')");
     fs.appendFileSync("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')");
   }
-
   //* Title of the movie.
   //* Year the movie came out.
   //* IMDB Rating of the movie.
@@ -101,7 +95,6 @@ function movieInfo(movieTitle) {
   //* Language of the movie.
   //* Plot of the movie.
   //* Actors in the movie.
-
   var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=b3c0b435";
   axios.get(queryUrl).then(function (response) {
 
@@ -132,15 +125,12 @@ function movieInfo(movieTitle) {
     }
   });
 
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-
   //function for Rotten Tomatoes Rating
   function getRottenTomatoesRatingObject(data) {
     return data.Ratings.find(function (item) {
       return item.Source === "Rotten Tomatoes";
     });
   }
-
   function getRottenTomatoesRatingValue(data) {
     return getRottenTomatoesRatingObject(data).Value;
   }
@@ -163,7 +153,6 @@ function doWhatItSaysInfo() {
     }
   });
 }
-
 
 function run(userChoice, userInput) {
   switch (userChoice.toLowerCase()) {
