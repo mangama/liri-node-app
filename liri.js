@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-var request = require('request');
+var axios = require('axios');
 var keys = require("./keys.js");
 var fs = require("fs");
 var Spotify = require('node-spotify-api');
@@ -10,37 +10,20 @@ var userInput = process.argv[3];
 
 //function switchFunction(userChoice, userInput)
 
-
-switch (userChoice.toLowerCase(), userInput) {
-  case "concert-this":
-    return concertInfo();
-
-  case "spotify-this-song":
-    return songInfo();
-
-  case "movie-this":
-    return movieInfo();
-
-  case "do-what-it-says":
-    return doWhatItSaysInfo();
-
-  default:
-    return console.log("Please, choose a valid option")
-
-}
-
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 // This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
 // Name of the venue
 // Venue location
 // Date of the Event (use moment to format this as "MM/DD/YYYY")
-function concertInfo(userInput) {
-  var queryUrl = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp";
-  request(queryUrl, function (error, response, body) {
+
+function concertInfo(artist) {
+  var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+  axios.get(queryUrl).then(function (response) {
+    // console.log(response.data[0].venue);
     // console.log(userInput);
-    if (!error && response.statusCode === 200) {
-      var concerts = JSON.parse(body);
+    if (response.status === 200) {
+      var concerts = response.data;
       console.log(concerts);
       for (var i = 0; i < concerts.length; i++) {
         console.log("Name of the Venue: " + concerts[i].venue.name + "\n");
@@ -50,7 +33,7 @@ function concertInfo(userInput) {
         console.log("Date of the Event: " + concerts[i].datetime + "\n" + "\n");
         fs.appendFileSync("log.txt", "Event Date: " + concerts[i].datetime + "\n" + "\n");
         console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-        fs.appendFileSync("log.txt" + "---------------------------------------------------------------------------------------------------------------------------------------");
+        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
         // console.log("Concert Details: " + i + "\n" + "\n");
         // fs.appendFileSync("log.txt" + i + "\n") + "\n";
       }
@@ -67,14 +50,14 @@ function concertInfo(userInput) {
 // A preview link of the song from Spotify
 // The album that the song is from
 // If no song is provided then your program will default to "The Sign" by Ace of Base.
-function songInfo(userInput) {
-  if (userInput === undefined) {
-    userInput = "The Sign";
+function songInfo(song) {
+  if (song === undefined) {
+    song = "The Sign";
   }
   spotify.search(
     {
       type: "track",
-      query: userInput
+      query: song
     },
     function (err, data) {
       if (err) {
@@ -93,7 +76,7 @@ function songInfo(userInput) {
         console.log("Album: " + songs[i].album.name + "\n" + "\n");
         fs.appendFileSync("log.txt", "Album: " + songs[i].album.name + "\n" + "\n");
         console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-        fs.appendFileSync("log.txt" + "---------------------------------------------------------------------------------------------------------------------------------------");
+        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
       }
     }
   );
@@ -101,11 +84,11 @@ function songInfo(userInput) {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
-function movieInfo(userInput) {
+function movieInfo(movieTitle) {
 
   //Default results
-  if (userInput === undefined) {
-    userInput = "Mr. Nobody"
+  if (movieTitle === undefined) {
+    movieTitle = "Mr. Nobody"
     console.log("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')");
     fs.appendFileSync("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')");
   }
@@ -119,11 +102,11 @@ function movieInfo(userInput) {
   //* Plot of the movie.
   //* Actors in the movie.
 
-  var queryUrl = "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=b3c0b435";
-  request(queryUrl, function (error, response, body) {
+  var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=b3c0b435";
+  axios.get(queryUrl).then(function (response) {
 
-    if (!error && response.statusCode === 200) {
-      var movies = JSON.parse(body);
+    if (response.status === 200) {
+      var movies = response.data;
       console.log("Title: " + movies.Title);
       fs.appendFileSync("log.txt", "Title: " + movies.Title + "\n");
       console.log("Release Year: " + movies.Year);
@@ -145,7 +128,7 @@ function movieInfo(userInput) {
     } else {
       console.log('An error has occurred.');
       console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-      fs.appendFileSync("log.txt" + "---------------------------------------------------------------------------------------------------------------------------------------");
+      fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
     }
   });
 
@@ -162,16 +145,44 @@ function movieInfo(userInput) {
     return getRottenTomatoesRatingObject(data).Value;
   }
 
-  //function that reads the random.txt file  
-  function doWhatItSaysInfo() {
-    fs.readFile('random.txt', 'utf8', function (err, data) {
-      if (err) {
-        return console.log(err);
-      }
-      var dataArray = data.split(',');
+}
 
-      switch (dataArray[0].toLowerCase(), dataArr[1]);
+//function that reads the random.txt file  
+function doWhatItSaysInfo() {
+  console.log("do what it says")
+  fs.readFile('random.txt', 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    var dataArray = data.split(',');
+    console.log(dataArray);
+    if (dataArray[0] !== "do-what-it-says")  {
+      run(dataArray[0], dataArray[1]);
+    } else {
+      console.log("do-what-it-says not valid for random.txt")
+    }
+  });
+}
 
-    });
+
+function run(userChoice, userInput) {
+  switch (userChoice.toLowerCase()) {
+    case "concert-this":
+      return concertInfo(userInput);
+
+    case "spotify-this-song":
+      return songInfo(userInput);
+
+    case "movie-this":
+      return movieInfo(userInput);
+
+    case "do-what-it-says":
+      return doWhatItSaysInfo();
+
+    default:
+      return console.log("Please, choose a valid option")
+
   }
 }
+
+run(userChoice, userInput);
