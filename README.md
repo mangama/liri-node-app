@@ -3,7 +3,7 @@
 
 1. Clearly state the problem the app is trying to solve (i.e. what is it doing and why)
 
-LIRI is a command line node app that takes in parameters and gives you back data. The user can only use the following command: 
+   LIRI is a command line node app that takes in parameters and gives you back data. The user can only use the following command: 
    * concert-this
    * spotify-this-song
    * movie-this
@@ -12,7 +12,7 @@ LIRI is a command line node app that takes in parameters and gives you back data
 
 2. Give a high-level overview of how the app is organized
 
-This program is a Language Interpretation and Recognition Interface. The application from the command line takes input parameters such as:
+   This program is a Language Interpretation and Recognition Interface. The application from the command line takes input parameters such as:
    * artist/band name and provide a list of venues with the following information:
       - Name of the venue
       - Venue location
@@ -34,45 +34,43 @@ This program is a Language Interpretation and Recognition Interface. The applica
    * a command that uses the contents of a txt file to execute
 
 
-3. Give start-to-finish instructions on how to run the app
-&
-4. Include screenshots, gifs or videos of the app functioning
+3. Give start-to-finish instructions on how to run the app. Include screenshots, gifs or videos of the app functioning.
 
-Instructions:
+   Instructions:
 
-Navigate to the liri-node-app folder that contains the liri.js and run the command of your choice
-   * If the user types node liri.js concert-this <name of artist or band>, here an exmaple of output:
+   Navigate to the liri-node-app folder that contains the liri.js and run the command of your choice
+      * If the user types node liri.js concert-this <name of artist or band>, here an exmaple of output:
       Screen Shot 2019-06-30 at 11.46.59.png
 
-      ![concert-this The Betales ](https://raw.github.com/mangama/liri-node-app/master/concert-this.png
+      ![concert-this The Betales ](https://github.com/mangama/liri-node-app/blob/master/images/concert-this.png)
 
 
 
 
       If an error occurs, the following message will display: 'An error has occured.'
 
-   * If the user enters node liri.js spotify-this-song <song name here>, here an exmaple of output:
+      * If the user enters node liri.js spotify-this-song <song name here>, here an exmaple of output:
       spotify-this-song.png
 
 
       If an error occurs, the following displays: err + "error has occurred"
-   * If the user types node liri.js movie-this <movie name here>, here an exmaple of output:
+      * If the user types node liri.js movie-this <movie name here>, here an exmaple of output:
       movie-this.png
 
       If an error occurs, the following message will display: 'An error has occured.'
       But, if a user enters a mispelled or a movie that is not available in OMDb, the movie Mr. Nobody" will be used by default. Below is a screenshot:
       
 
-   * Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's command 'node liri.js               do-what-it-says' §which should run spotify-this-song for "I Want it That Way,". Hereis a screenshot of terminal.
+      * Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's command 'node liri.js               do-what-it-says' §which should run spotify-this-song for "I Want it That Way,". Hereis a screenshot of terminal.
 
-   * If the wrong a command other than the ones listed above is called, the message "Please, choose a valid option" will display.
-
-
-5. Contain a link to a deployed version of the app
+      * If the wrong a command other than the ones listed above is called, the message "Please, choose a valid option" will display.
 
 
+4. Contain a link to a deployed version of the app
 
-6. Clearly list the technologies used in the app
+
+
+5. Clearly list the technologies used in the app
 
    * GitHub
    * Javascript
