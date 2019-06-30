@@ -40,17 +40,13 @@
 
    Navigate to the liri-node-app folder that contains the liri.js and run the command of your choice
       * If the user types node liri.js concert-this <name of artist or band>, here an exmaple of output:
-      Screen Shot 2019-06-30 at 11.46.59.png
 
-      ![concert-this The Betales ](https://github.com/mangama/liri-node-app/blob/master/images/concert-this.png)
-
-
-
+         ![concert-this The Betales ](https://github.com/mangama/liri-node-app/blob/master/images/concert-this.png)
 
       If an error occurs, the following message will display: 'An error has occured.'
 
       * If the user enters node liri.js spotify-this-song <song name here>, here an exmaple of output:
-      spotify-this-song.png
+         ![spotify-this-son  ](https://github.com/mangama/liri-node-app/blob/master/images/concert-this.png)
 
 
       If an error occurs, the following displays: err + "error has occurred"
