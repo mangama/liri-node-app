@@ -18,19 +18,19 @@ var userInput = process.argv[3];
 function concertInfo(artist) {
   var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
   axios.get(queryUrl).then(function (response) {
-    console.log(response);
+
     if (response.status === 200) {
       var concerts = response.data;
-      console.log(concerts);
+
       for (var i = 0; i < concerts.length; i++) {
         console.log("Name of the Venue: " + concerts[i].venue.name);
-        fs.appendFileSync("log.txt", "Venue Name: " + concerts[i].venue.name);
+        fs.appendFileSync("log.txt", "Venue Name: " + concerts[i].venue.name+"\n");
         console.log("Venue Location: " + concerts[i].venue.city) + "\n";
         fs.appendFileSync("log.txt", "Venue Location: " + concerts[i].venue.city + "\n");
         console.log("Date of the Event: " + concerts[i].datetime + "\n" + "\n");
         fs.appendFileSync("log.txt", "Event Date: " + concerts[i].datetime + "\n" + "\n");
-        console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
+        console.log("---------------------------------------------------------------------------------------------------------------------------------------\n\n");
+        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------\n\n");
       }
     } else {
       console.log('An error has occured.');
@@ -58,12 +58,13 @@ function songInfo(song) {
       if (err) {
         console.log(err + "error has occurred");
         console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
+        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------\n\n");
       }
       var songs = data.tracks.items;
 
       for (var i = 0; i < songs.length; i++) {
-        console.log("Artist(s): " + songs[i].artists[0].name);
+
+        console.log("\n" + "\n" + "Artist(s): " + songs[i].artists[0].name);
         fs.appendFileSync("log.txt", "Artist(s): " + songs[i].artists[0].name + "\n");
         console.log("Song name: " + songs[i].name);
         fs.appendFileSync("log.txt", "Song name: " + songs[i].name + "\n");
@@ -71,8 +72,13 @@ function songInfo(song) {
         fs.appendFileSync("log.txt", "Preview song: " + songs[i].preview_url + "\n");
         console.log("Album: " + songs[i].album.name + "\n" + "\n");
         fs.appendFileSync("log.txt", "Album: " + songs[i].album.name + "\n" + "\n");
+
+        // fs.appendFileSync("\n" + "\n" + "log.txt", "Artist(s): " + "\n"+ songs[i].artists[0].name + "\n"+
+        // songs[i].name+ "\n"+ songs[i].preview_url+ "\n"+songs[i].album.name + "\n" );
+
+
         console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------");
+        fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------\n\n");
       }
     }
   );
@@ -81,6 +87,7 @@ function songInfo(song) {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 function movieInfo(movieTitle) {
+  var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=b3c0b435";
   //Default results
   if (movieTitle === undefined) {
     movieTitle = "Mr. Nobody"
@@ -95,13 +102,13 @@ function movieInfo(movieTitle) {
   //* Language of the movie.
   //* Plot of the movie.
   //* Actors in the movie.
-  var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=b3c0b435";
   axios.get(queryUrl).then(function (response) {
+    // console.log(response);
 
     if (response.status === 200) {
       var movies = response.data;
-      console.log("Title: " + movies.Title);
-      fs.appendFileSync("log.txt", "Title: " + movies.Title + "\n");
+      console.log("\n" + "\n" + "Title: " + movies.Title);
+      fs.appendFileSync("\n" + "\n" + "log.txt", "Title: " + movies.Title + "\n");
       console.log("Release Year: " + movies.Year);
       fs.appendFileSync("log.txt", "Release Year: " + movies.Year + "\n");
       console.log("IMDB Rating: " + movies.imdbRating);
@@ -117,7 +124,7 @@ function movieInfo(movieTitle) {
       console.log("Actors: " + movies.Actors + "\n" + "\n");
       fs.appendFileSync("log.txt", "Actors: " + movies.Actors + "\n" + "\n");
       console.log("---------------------------------------------------------------------------------------------------------------------------------------");
-      fs.appendFileSync("log.txt" + "---------------------------------------------------------------------------------------------------------------------------------------");
+      fs.appendFileSync("log.txt" + "---------------------------------------------------------------------------------------------------------------------------------------\n\n");
     } else {
       console.log('An error has occurred.');
       console.log("---------------------------------------------------------------------------------------------------------------------------------------");
@@ -139,14 +146,14 @@ function movieInfo(movieTitle) {
 
 //function that reads the random.txt file  
 function doWhatItSaysInfo() {
-  console.log("do what it says")
+  // console.log("do what it says")
   fs.readFile('random.txt', 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
     var dataArray = data.split(',');
     console.log(dataArray);
-    if (dataArray[0] !== "do-what-it-says")  {
+    if (dataArray[0] !== "do-what-it-says") {
       run(dataArray[0], dataArray[1]);
     } else {
       console.log("do-what-it-says not valid for random.txt")
