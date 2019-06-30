@@ -72,11 +72,6 @@ function songInfo(song) {
         fs.appendFileSync("log.txt", "Preview song: " + songs[i].preview_url + "\n");
         console.log("Album: " + songs[i].album.name + "\n" + "\n");
         fs.appendFileSync("log.txt", "Album: " + songs[i].album.name + "\n" + "\n");
-
-        // fs.appendFileSync("\n" + "\n" + "log.txt", "Artist(s): " + "\n"+ songs[i].artists[0].name + "\n"+
-        // songs[i].name+ "\n"+ songs[i].preview_url+ "\n"+songs[i].album.name + "\n" );
-
-
         console.log("---------------------------------------------------------------------------------------------------------------------------------------");
         fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------\n\n");
       }
@@ -90,9 +85,12 @@ function movieInfo(movieTitle) {
   var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=b3c0b435";
   //Default results
   if (movieTitle === undefined) {
-    movieTitle = "Mr. Nobody"
-    console.log("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')");
-    fs.appendFileSync("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')");
+    movieTitle = "Mr. Nobody";
+    console.log("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')\n");
+    fs.appendFileSync("You intered an undefined movie title. Here are the details of the movie by default ('Mr. Nobody')\n");
+    console.log("---------------------------------------------------------------------------------------------------------------------------------------\n");
+    fs.appendFileSync("log.txt", "---------------------------------------------------------------------------------------------------------------------------------------\n");
+  
   }
   //* Title of the movie.
   //* Year the movie came out.
@@ -107,8 +105,8 @@ function movieInfo(movieTitle) {
 
     if (response.status === 200) {
       var movies = response.data;
-      console.log("\n" + "\n" + "Title: " + movies.Title);
-      fs.appendFileSync("\n" + "\n" + "log.txt", "Title: " + movies.Title + "\n");
+      console.log("\nTitle: " + movies.Title);
+      fs.appendFileSync("log.txt", "Title: " + movies.Title + "\n");
       console.log("Release Year: " + movies.Year);
       fs.appendFileSync("log.txt", "Release Year: " + movies.Year + "\n");
       console.log("IMDB Rating: " + movies.imdbRating);
@@ -149,7 +147,7 @@ function doWhatItSaysInfo() {
   // console.log("do what it says")
   fs.readFile('random.txt', 'utf8', function (err, data) {
     if (err) {
-      return console.log(err);
+      return console.log(err + "has occurred");
     }
     var dataArray = data.split(',');
     console.log(dataArray);
