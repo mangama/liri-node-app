@@ -43,28 +43,29 @@
 
          ![concert-this The Betales ](https://github.com/mangama/liri-node-app/blob/master/images/concert-this.png)
 
-      If an error occurs, the following message will display: 'An error has occured.'
+         If an error occurs, the following message will display: 'An error has occured.'
 
       * If the user enters node liri.js spotify-this-song <song name here>, here an exmaple of output:
-         ![spotify-this-son  ](https://github.com/mangama/liri-node-app/blob/master/images/concert-this.png)
+         ![spotify-this-song secret  ](https://github.com/mangama/liri-node-app/blob/master/images/spotify-this-song.png)
 
+         If an error occurs, the following displays: err + "error has occurred"
 
-      If an error occurs, the following displays: err + "error has occurred"
       * If the user types node liri.js movie-this <movie name here>, here an exmaple of output:
-      movie-this.png
+         ![movies-this frozen  ](https://github.com/mangama/liri-node-app/blob/master/images/movie-this.png)
 
-      If an error occurs, the following message will display: 'An error has occured.'
-      But, if a user enters a mispelled or a movie that is not available in OMDb, the movie Mr. Nobody" will be used by default. Below is a screenshot:
-      
+         If an error occurs, the following message will display: 'An error has occured.'
 
-      * Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's command 'node liri.js               do-what-it-says' §which should run spotify-this-song for "I Want it That Way,". Hereis a screenshot of terminal.
+         But, if a user enters a mispelled or a movie that is not available in OMDb, the movie Mr. Nobody" will be used by default. Below is a screenshot:
+         ![movies-this undefined  ](https://github.com/mangama/liri-node-app/blob/master/images/movie-this-undefined.png)
+
+      * Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's command 'node liri.js             do-what-it-says' which should run spotify-this-song for "I Want it That Way,". Hereis a screenshot of terminal.
+         ![movies-this undefined  ](https://github.com/mangama/liri-node-app/blob/master/images/do-what-it-says.png)
 
       * If the wrong a command other than the ones listed above is called, the message "Please, choose a valid option" will display.
 
 
 4. Contain a link to a deployed version of the app
-
-
+   GitHub deployment link:  https://mangama.github.io/liri-node-app/
 
 5. Clearly list the technologies used in the app
 
